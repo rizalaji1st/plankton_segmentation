@@ -37,4 +37,5 @@ class PlanktonSegmentationDataset(Dataset):
             augmentations = self.transform(image=image, mask=mask)
             image = augmentations['image']
             mask = augmentations['mask']
+            mask = mask.unsqueeze(0)
         return image, mask
