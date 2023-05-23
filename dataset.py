@@ -2,7 +2,7 @@ import os
 
 from PIL import Image
 from pycocotools.coco import COCO
-from torch.utils.data import Dataset
+from torch.utils.data import Dataset, DataLoader
 import numpy as np
 
 
@@ -39,3 +39,9 @@ class PlanktonSegmentationDataset(Dataset):
             mask = augmentations['mask']
             mask = mask.unsqueeze(0)
         return image, mask
+
+
+def get_plankton_dataset_loader(data_dir="", batch_size=8, is_train=True, transform=None):
+    ds = PlanktonSegmentationDataset(data_dir=data_dir, transform=transform)
+    data_loader = DataLoader(ds, batch_size=batch_size, shuffle=is_train)
+    return data_loader
