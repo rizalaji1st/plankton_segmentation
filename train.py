@@ -1,18 +1,24 @@
 # !pip install -q segmentation-models-pytorch
 # !git clone https://github.com/kangPrayit/plankton_segmentation
 
+import os
+import numpy as np
+
 from pathlib import Path
 import albumentations as A
 from albumentations.pytorch import ToTensorV2
 
+import torch
 from torch import optim, nn
 
-# from plankton_segmentation.dataset import *
-# from plankton_segmentation.model import *
-from dataset import *
-from model import *
-from engine import *
-from util import save_experiment
+from plankton_segmentation.dataset import *
+from plankton_segmentation.model import *
+from plankton_segmentation.engine import *
+from plankton_segmentation.util import *
+# from dataset import *
+# from model import *
+# from engine import *
+# from util import save_experiment
 
 
 def seed_everything(seed):
@@ -83,6 +89,8 @@ for epoch in range(EPOCHS):
     metrics["test_loss"].append(test_loss)
     metrics["test_dice"].append(test_dice)
     metrics["test_iou"].append(test_iou)
+
+plot_performance_form_dict(metrics)
 
 if SAVE_EXPERIMENT:
     save_experiment(SAVE_DIR, EXPERIMENT_NAME, model, metrics)

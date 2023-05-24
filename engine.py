@@ -1,8 +1,10 @@
 import torch
 from tqdm import tqdm
 
-from metric import dice_coefficient, iou_score
-from util import plot_train_progress
+from plankton_segmentation.metric import dice_coefficient, iou_score
+from plankton_segmentation.util import plot_train_progress
+# from metric import dice_coefficient, iou_score
+# from util import plot_train_progress
 
 
 def train_fn(train_loader, model, optimizer, loss_fn, DEVICE):
