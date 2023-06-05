@@ -64,6 +64,8 @@ def evaluate_fn(model, test_loader, loss_fn, DEVICE, PLOT_IMAGE_DURING_TRAINING=
     test_dice = 0.0
     test_iou = 0.0
     test_pixel_accuracy = 0.0
+    test_precision = 0.0
+    test_recall = 0.0
     with torch.no_grad():
         loop = tqdm(test_loader)
         for images, masks in loop:
