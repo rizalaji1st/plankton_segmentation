@@ -1,5 +1,6 @@
 import torch
 from tqdm import tqdm
+import timeit
 
 from plankton_segmentation.metric import dice_coefficient, iou_score, get_pixel_accuracy, get_precision, get_recall
 from plankton_segmentation.util import plot_train_progress
@@ -8,6 +9,7 @@ from plankton_segmentation.util import plot_train_progress
 
 
 def train_fn(train_loader, model, optimizer, loss_fn, DEVICE):
+    time_start = timeit.default_timer()
     # Training
     model.train()
     train_loss = 0.0
@@ -49,10 +51,13 @@ def train_fn(train_loader, model, optimizer, loss_fn, DEVICE):
     train_pixel_accuracy = train_pixel_accuracy / len(train_loader.dataset)
     train_precision = train_precision / len(train_loader.dataset)
     train_recall = train_recall / len(train_loader.dataset)
-    return train_loss, train_dice, train_iou, train_pixel_accuracy, train_precision, train_recall
+    time_stop = timeit.default_timer()
+    train_time = time_stop - time_start
+    return train_loss, train_dice, train_iou, train_pixel_accuracy, train_precision, train_recall, train_time
 
 
 def evaluate_fn(model, test_loader, loss_fn, DEVICE, PLOT_IMAGE_DURING_TRAINING=False):
+    time_start = timeit.default_timer()
     # Evaluation
     model.eval()
     test_loss = 0.0
@@ -93,4 +98,6 @@ def evaluate_fn(model, test_loader, loss_fn, DEVICE, PLOT_IMAGE_DURING_TRAINING=
     test_pixel_accuracy = test_pixel_accuracy / len(test_loader.dataset)
     test_precision = test_precision / len(test_loader.dataset)
     test_recall = test_recall / len(test_loader.dataset)
-    return test_loss, test_dice, test_iou, test_pixel_accuracy, test_precision, test_recall
+    time_stop = timeit.default_timer()
+    test_time = time_stop - time_start
+    return test_loss, test_dice, test_iou, test_pixel_accuracy, test_precision, test_recall, test_time
