@@ -26,3 +26,18 @@ def get_pixel_accuracy(y_pred, y_true):
     total_pixels = y_pred.numel()
     accuracy = correct_pixels / total_pixels
     return accuracy
+
+def precision(y_pred, y_true):
+    y_pred = (y_pred > 0.5).float()
+    true_positive = torch.sum((y_pred == 1) & (y_true == 1))
+    false_positive = torch.sum((y_pred == 1) & (y_true == 0))
+    precision = true_positive / (true_positive + false_positive + 1e-7)
+    return precision
+
+
+def recall(y_pred, y_true):
+    y_pred = (y_pred > 0.5).float()
+    true_positive = torch.sum((y_pred == 1) & (y_true == 1))
+    false_negative = torch.sum((y_pred == 0) & (y_true == 1))
+    recall = true_positive / (true_positive + false_negative + 1e-7)
+    return recall
