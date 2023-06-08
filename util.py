@@ -45,10 +45,16 @@ def plot_performance_form_dict(metrics):
     test_dice_values = df_metrics['test_dice'].values
     train_iou_values = df_metrics['train_iou'].values
     test_iou_values = df_metrics['test_iou'].values
+    train_precision_values = df_metrics['train_precision'].values
+    test_precision_values = df_metrics['test_precision'].values
+    train_recall_values = df_metrics['train_recall'].values
+    test_recall_values = df_metrics['test_recall'].values
+    train_pixel_accuracy_values = df_metrics['train_pixel_accuracy'].values
+    test_pixel_accuracy_values = df_metrics['test_pixel_accuracy'].values
     train_loss_values = df_metrics['train_loss'].values
     test_loss_values = df_metrics['test_loss'].values
 
-    fig, (ax1, ax2, ax3) = plt.subplots(3, 1, figsize=(8, 8))
+    fig, (ax1, ax2, ax3, ax4, ax5, ax6) = plt.subplots(6, 1, figsize=(8, 8))
 
     ax1.plot(train_dice_values, label='Train dice')
     ax1.plot(test_dice_values, label='Test dice')
@@ -70,6 +76,27 @@ def plot_performance_form_dict(metrics):
     ax3.set_ylabel('Loss')
     ax3.set_title('Train and Test Loss')
     ax3.legend()
+
+    ax4.plot(train_precision_values, label='Train Precision')
+    ax4.plot(test_precision_values, label='Test Precision')
+    ax4.set_xlabel('Epoch')
+    ax4.set_ylabel('Precision')
+    ax4.set_title('Train and Test Precision')
+    ax4.legend()
+    
+    ax5.plot(train_recall_values, label='Train Recall')
+    ax5.plot(test_recall_values, label='Test Recall')
+    ax5.set_xlabel('Epoch')
+    ax5.set_ylabel('Recall')
+    ax5.set_title('Train and Test Recall')
+    ax5.legend()
+    
+    ax6.plot(train_pixel_accuracy_values, label='Train Pixel Accuracy')
+    ax6.plot(test_pixel_accuracy_values, label='Test Pixel Accuracy')
+    ax6.set_xlabel('Epoch')
+    ax6.set_ylabel('Pixel Accuracy')
+    ax6.set_title('Train and Test Pixel Accuracy')
+    ax6.legend()
 
     plt.tight_layout()
     plt.show()
