@@ -108,5 +108,5 @@ def save_experiment(SAVE_DIR, EXPERIMENT_NAME, model, metrics):
     torch.save(model, os.path.join(EXPERIMENT_DIR, f"model_{EXPERIMENT_NAME}.pth"))
     torch.save(metrics, os.path.join(EXPERIMENT_DIR, f"metrics_{EXPERIMENT_NAME}.pth"))
     df_metrics = pd.DataFrame.from_dict(metrics)
-    df_metrics.to_csv(os.path.join(EXPERIMENT_DIR, f"metrics_{EXPERIMENT_NAME}.csv"), index=False)
+    df_metrics.to_csv(os.path.join(EXPERIMENT_DIR, f"metrics_complete_{EXPERIMENT_NAME}.csv"), index=False)
     df_metrics.tail(1).to_csv(os.path.join(EXPERIMENT_DIR, f"metrics_last_{EXPERIMENT_NAME}.csv"), index=False)
