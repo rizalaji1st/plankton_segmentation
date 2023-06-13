@@ -54,7 +54,7 @@ def plot_performance_form_dict(metrics):
     train_loss_values = df_metrics['train_loss'].values
     test_loss_values = df_metrics['test_loss'].values
 
-    fig, (ax1, ax2, ax3, ax4, ax5, ax6) = plt.subplots(6, 1, figsize=(8, 8))
+    fig, (ax1, ax2, ax3, ax4, ax5, ax6) = plt.subplots(6, 1, figsize=(8, 16))
 
     ax1.plot(train_dice_values, label='Train dice')
     ax1.plot(test_dice_values, label='Test dice')
