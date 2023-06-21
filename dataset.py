@@ -38,7 +38,12 @@ class PlanktonSegmentationDataset(Dataset):
             image = augmentations['image']
             mask = augmentations['mask']
             mask = mask.unsqueeze(0)
-        return image, mask
+
+        # Get class labels
+        _, target = self.coco[item]
+        labels = [obj['category_id'] for obj in target]
+        
+        return image, mask, labels
 
 
 def get_plankton_dataset_loader(data_dir="", batch_size=8, is_train=True, transform=None):
