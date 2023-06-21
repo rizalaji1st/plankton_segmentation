@@ -11,7 +11,6 @@ class PlanktonSegmentationDataset(Dataset):
         super(PlanktonSegmentationDataset, self).__init__()
         self.data_dir = data_dir
         self.annotations = COCO(os.path.join(data_dir, annotation_file))
-        self.coco = PlanktonSegmentationDataset(data_dir, annotation_file)
         self.image_ids = self.annotations.getImgIds()
         self.transform = transform
 
@@ -19,6 +18,7 @@ class PlanktonSegmentationDataset(Dataset):
         return len(self.image_ids)
 
     def __getitem__(self, item):
+        self.annotations
         image_info = self.annotations.loadImgs(self.image_ids[item])[0]
         image_path = os.path.join(self.data_dir, image_info['file_name'])
         image = Image.open(image_path).convert('RGB')
@@ -41,10 +41,10 @@ class PlanktonSegmentationDataset(Dataset):
             mask = mask.unsqueeze(0)
 
         # Get class labels
-        _, target = self.coco[item]
-        labels = [obj['category_id'] for obj in target]
+        # _, target = self.coco[item]
+        # labels = [obj['category_id'] for obj in target]
         
-        return image, mask, labels
+        return image, mask
 
 
 def get_plankton_dataset_loader(data_dir="", batch_size=8, is_train=True, transform=None):
