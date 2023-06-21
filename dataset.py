@@ -18,6 +18,12 @@ class PlanktonSegmentationDataset(Dataset):
     def __len__(self):
         return len(self.image_ids)
 
+    def get_classes(self):
+        category_ids = self.annotations.getCatIds()
+        categories = self.annotations.loadCats(category_ids)
+        classes = [category['name'] for category in categories]
+        return classes
+    
     def __getitem__(self, item):
         self.annotations
         image_info = self.annotations.loadImgs(self.image_ids[item])[0]
