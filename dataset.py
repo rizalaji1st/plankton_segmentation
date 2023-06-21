@@ -11,6 +11,7 @@ class PlanktonSegmentationDataset(Dataset):
         super(PlanktonSegmentationDataset, self).__init__()
         self.data_dir = data_dir
         self.annotations = COCO(os.path.join(data_dir, annotation_file))
+        self.coco = PlanktonSegmentationDataset(data_dir, annotation_file)
         self.image_ids = self.annotations.getImgIds()
         self.transform = transform
 
