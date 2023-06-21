@@ -13,6 +13,7 @@ class PlanktonSegmentationDataset(Dataset):
         self.annotations = COCO(os.path.join(data_dir, annotation_file))
         self.image_ids = self.annotations.getImgIds()
         self.transform = transform
+        self.classes = self.get_classes()
 
     def __len__(self):
         return len(self.image_ids)
