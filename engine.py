@@ -26,6 +26,8 @@ def train_fn(train_loader, model, optimizer, loss_fn, DEVICE):
         optimizer.zero_grad()
         with torch.autocast(device_type='cuda'):
             outputs = model(images)
+            print(outputs)
+            print(masks)
             loss = loss_fn(outputs, masks)
             dice = dice_coefficient(outputs, masks)
             iou = iou_score(outputs, masks)
